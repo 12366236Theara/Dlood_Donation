@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kilo_health/Screen/forGot_Password_Screen/forgot_passsword.dart';
 
 class CheckBox extends StatefulWidget {
@@ -24,7 +26,7 @@ class _CheckBoxState extends State<CheckBox> {
                     _isCheckBox = value ?? false;
                   });
                 }),
-            const Text("Remember me"),
+             Text("remember_me".tr , style: GoogleFonts.notoSansKhmer()),
           ],
         ),
         TextButton(
@@ -35,9 +37,9 @@ class _CheckBoxState extends State<CheckBox> {
                     builder: (context) => const ForgotPasssword(),
                   ));
             },
-            child: const Text(
-              "Forget Password ?",
-              style: TextStyle(fontSize: 14, color: Colors.blue),
+            child:  Text(
+              "forget_password".tr,
+              style:  GoogleFonts.notoSansKhmer(fontSize: 14, color: Colors.blue),
             ))
       ],
     );

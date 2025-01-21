@@ -1,149 +1,229 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:intl/intl.dart';
 import 'package:kilo_health/Screen/Screen_LornPolinDetail_Accepts/detail_Accepts.dart';
+import 'package:kilo_health/Screen/home_Sreen/conpoment/buttom.dart';
+import 'package:kilo_health/controller/controller_getrequest.dart';
 
 class Grititem extends StatelessWidget {
   const Grititem({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const ScrollPhysics(),
-      shrinkWrap: true,
-      itemExtent: 214,
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8,
-          ),
-          child: Card(
-            elevation: 5,
-            shadowColor: Colors.white,
-            child: Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  InkWell(
+    final ControllerGetrequest getcontroller = Get.put(ControllerGetrequest());
+    getcontroller.getcontroller();
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.only(
+          left: 8,
+          right: 8,
+        ),
+        child: getcontroller.isLoading.value
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: getcontroller.model_GetRequest.length,
+                itemBuilder: (context, index) {
+                  if (getcontroller.model_GetRequest.isEmpty) {
+                    return const Text("No Data Available");
+                  }
+                  final data = getcontroller.model_GetRequest[index];
+
+                  // Convert the createdAt time string to a DateTime object
+                  String formattedTime = _formatTime(data.createdAt);
+                  return InkWell(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const DetailAccepts(),
+                            builder: (context) => DetailAccepts(
+                              fistname: data.createdBy!.firstName ?? '',
+                              lastname: data.createdBy!.lastName ?? '',
+                              location: data.location!.address ?? "",
+                              typeblood: data.bloodType ?? '',
+                              phone: data.phoneNumber ?? '',
+                              note: data.note ?? '',
+                            ),
                           ));
                     },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                    child: Card(
+                      elevation: 1,
+                      shadowColor: Colors.white,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Stack(
                           children: [
-                            Image.asset("lib/image/Profilegrit.jpg"),
-                            const SizedBox(
-                              width: 5,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                                "lib/image/Profileitem.png"),
+                                            const SizedBox(
+                                              width: 3,
+                                            ),
+                                            texts("name".tr, Colors.black, 15)
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                          "${data.createdBy!.firstName} ${data.createdBy!.lastName}",
+                                          style: GoogleFonts.notoSansKhmer(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                                "lib/image/Locationitem.png"),
+                                            const SizedBox(
+                                              width: 3,
+                                            ),
+                                            texts("lacation".tr, Colors.black,
+                                                15),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        texts(
+                                            data.location?.address ??
+                                                "lacation",
+                                            Colors.black,
+                                            15),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                                "lib/image/timeitem.png"),
+                                            const SizedBox(
+                                              width: 2,
+                                            ),
+                                            texts("time".tr, Colors.black, 15),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              formattedTime,
+                                            ), // Display formatted time
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+
+                                            Text(
+                                              data.status ?? "status",
+                                              style: GoogleFonts.notoSansKhmer(
+                                                color: const Color(0xffE59600),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          data.bloodType ?? 'blood',
+                                          style: GoogleFonts.notoSansKhmer(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 24),
+                                        ),
+                                        Image.asset(
+                                            height: 40,
+                                            "lib/image/Blooditem.png"),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            texts("Name")
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        const Text(
-                          "LORN POLIN",
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset("lib/image/Location.jpg"),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            texts("Location"),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        texts("Phnom Panh, Cambodia"),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset("lib/image/time.jpg"),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            texts("Time"),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Row(
-                          children: [
-                            texts("5 Min Ago"),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            const Text(
-                              "Pedding",
-                              style: TextStyle(
-                                color: Color(0xffE59600),
+                            Positioned(
+                              right: 1,
+                              bottom: 0,
+                              child: Row(
+                                children: [
+                                  bottom(
+                                    "cancel",
+                                    Colors.red,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  bottom(
+                                    "accept",
+                                    Colors.blue,
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(fontSize: 18, color: Colors.red),
-                    ),
-                    onPressed: () {},
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "B+",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26),
                       ),
-                      Image.asset(height: 50, "lib/image/Blood.jpg"),
-                      TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Accept",
-                            style: TextStyle(color: Colors.blue, fontSize: 20),
-                          ))
-                    ],
-                  )
-                ],
+                    ),
+                  );
+                },
               ),
-            ),
-          ),
-        );
-      },
+      ),
     );
+  }
+
+  // Method to format time
+  String _formatTime(String? time) {
+    if (time == null) {
+      return "No time available";
+    }
+    try {
+      // Convert the string to DateTime
+      DateTime parsedTime = DateTime.parse(time);
+      // Format the DateTime object into a more readable format
+      return DateFormat(' kk:mm')
+          .format(parsedTime); // Example: 2024-12-12 – 15:45
+    } catch (e) {
+      return "Invalid date format";
+    }
   }
 }
 
-Widget texts(String text) {
-  return Text(
-    text,
-    style: const TextStyle(color: Colors.black, fontSize: 15),
+Widget texts(String text, Color color, double size) {
+  return SizedBox(
+    width: 130,
+    child: Text(
+      text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: GoogleFonts.notoSansKhmer(color: color, fontSize: size),
+    ),
   );
 }
+// yyyy/MM/dd

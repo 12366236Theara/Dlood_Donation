@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kilo_health/Screen/Screen_Setting/conpoment/TurntON_Off.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kilo_health/Screen/Screen_Setting/conpoment/dark_Mode.dart';
 import 'package:kilo_health/Screen/Screen_Setting/conpoment/property.dart';
 
 class ScrennSetting extends StatelessWidget {
@@ -8,9 +10,9 @@ class ScrennSetting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromRGBO(33, 150, 243, 1),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -20,31 +22,29 @@ class ScrennSetting extends StatelessWidget {
             Icons.arrow_back_ios_new,
           ),
         ),
-        actions: const [
-          Icon(size: 27, color: Colors.white, Icons.notifications),
-        ],
-        title: const Text(
-          "Setting ",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+       
+        title:  Text(
+          "settings".tr,
+          style: GoogleFonts.notoSansKhmer(color: Colors.white, fontSize: 18),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const TurntonOff(),
+            const Darkmode(),
              const SizedBox(
               height: 20,
             ),
-            Propertysetting("lib/image/notificationss.jpg", "Notifications"),
+            Propertysetting("lib/image/notification-light.png", "Notifications"),
             const SizedBox(
               height: 20,
             ),
-            Propertysetting("lib/image/Languag.jpg", "Languages"),
+            Propertysetting("lib/image/languagesetting.png", "Languages"),
             const SizedBox(
               height: 20,
             ),
-            Propertysetting("lib/image/Securetys.jpg", "Securety"),
+            Propertysetting("lib/image/securetysetting.png", "Securety"),
             const SizedBox(
               height: 20,
             ),
@@ -54,7 +54,7 @@ class ScrennSetting extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                     children: [
-                      Image.asset("lib/image/helpe.jpg"),
+                      Image.asset("lib/image/help.png"),
                       const SizedBox(
                         width: 15,
                       ),

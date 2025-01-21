@@ -35,7 +35,7 @@ class _MainSreenState extends State<MainSreen> {
     return Scaffold(
         body: _page[_indexpage],
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 6 ),
+          padding: const EdgeInsets.symmetric(horizontal: 5,),
           child: GBottom(
             selectedIndex: _indexpage,
             onTabChange: (index) {

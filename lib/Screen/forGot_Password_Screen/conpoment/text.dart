@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Textscompoment extends StatelessWidget {
   const Textscompoment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Forgot",
-          style: TextStyle(fontSize: 18, color: Colors.black),
+        Row(
+          children: [
+            Text(
+              "forgot".tr, // Translation key for "Forgot"
+              style:   GoogleFonts.notoSansKhmer(fontSize: 18, color: Colors.black),
+            ),
+            Text(
+              "password".tr, // Translation key for "Password?"
+              style:   GoogleFonts.notoSansKhmer(fontSize: 18, color: Colors.black),
+            ),
+          ],
         ),
         Text(
-          "Password?",
-          style: TextStyle(fontSize: 18, color: Colors.black),
+          "forgot_password_description".tr, // Translation key for the description
+          style:   GoogleFonts.notoSansKhmer(color: Colors.grey, fontSize: 17),
         ),
-        Text(
-          "Don’t worry ! It happens. Please enter the phone number we will send the OTP in this phone number.",
-          style: TextStyle(color: Colors.grey, fontSize: 17),
-        ),
-        SizedBox(
-          height: 60,
-        ),
+       
       ],
     );
   }

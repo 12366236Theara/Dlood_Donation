@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kilo_health/Screen/Language_Screen/langauge_screen.dart';
 import 'package:kilo_health/model/model_OnBoading.dart';
 import 'package:kilo_health/Screen/onBoarding_Sreen/conpoment/SplashAnimation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final List<ModelOnboading> model;
@@ -38,45 +39,54 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.only(
-          left: 20,
           top: 50,
           bottom: 50,
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: 10,
-                  child: Row(
-                    children: List.generate(
-                      widget.model.length, // `model` is now defined
-                      (index) => buildDot(index, context),
+            Padding(
+              padding: const EdgeInsets.only(left: 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 10,
+                    child: Row(
+                      children: List.generate(
+                        widget.model.length, // `model` is now defined
+                        (index) => buildDot(index, context),
+                      ),
                     ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      if (_controller.page == model.length - 1) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LangaugeScreen(),
-                            ));
+                  TextButton(
+                    onPressed: () async {
+                      if (currentindex == widget.model.length - 1) {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.setBool('onbooldin_completed', true);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LangaugeScreen(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      } else {
+                        _controller.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
                       }
-                      _controller.nextPage(
-                          duration: const Duration(milliseconds: 10),
-                          curve: Curves.bounceIn);
-                    });
-                  },
-                  child: const Text(
-                    "Skip",
-                    style: TextStyle(fontSize: 20),
+                    },
+                    child: Text(
+                      currentindex == widget.model.length - 1
+                          ? "Get Started"
+                          : "Next",
+                      style: const TextStyle(fontSize: 20),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 150),
             Expanded(
@@ -88,117 +98,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   });
                 },
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          "lib/image/noto_man-superhero.jpg",
-                          height: 350,
-                          fit: BoxFit.cover,
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Empower Generosity",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              "Effortlessly organize your tasks and projects with our intuitive app, designed to boost productivity.",
-                              style: TextStyle(
-                                fontSize: 19,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  buildOnboardingPage(
+                    image: 'lib/image/notomansuperhero.png',
+                    title: "Empower Generosity",
+                    description:
+                        "Effortlessly organize your tasks and projects with our intuitive app, designed to boost productivity.",
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          "lib/image/Blood.jpg",
-                          height: 350,
-                          fit: BoxFit.cover,
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Empower Generosity",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              "Effortlessly organize your tasks and projects with our intuitive app, designed to boost productivity.",
-                              style: TextStyle(
-                                fontSize: 19,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  buildOnboardingPage(
+                    image: "lib/image/imagesliper (2).jpg",
+                    title: "Empower Generosity",
+                    description:
+                        "Effortlessly organize your tasks and projects with our intuitive app, designed to boost productivity.",
                   ),
                   Stack(
                     children: [
-                      Padding(
-                          padding: const EdgeInsets.only(
-                            left: 160,
-                          ),
-                          child: SplashAnimation()),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(
-                              "lib/image/imagesliper (2).jpg",
-                              height: 350,
-                              fit: BoxFit.cover,
-                            ),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Empower Generosity",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Text(
-                                  "Effortlessly organize your tasks and projects with our intuitive app, designed to boost productivity.",
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 190),
+                        child: SplashAnimation(),
+                      ),
+                      buildOnboardingPage(
+                        image: "lib/image/imagesliper (2).jpg",
+                        title: "Empower Generosity",
+                        description:
+                            "Effortlessly organize your tasks and projects with our intuitive app, designed to boost productivity.",
                       ),
                     ],
                   ),
@@ -208,6 +130,49 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildOnboardingPage({
+    required String image,
+    required String title,
+    required String description,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Image.asset(
+          image,
+          height: 200,
+          fit: BoxFit.cover,
+        ),
+        const SizedBox(height: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                description,
+                style: const TextStyle(
+                  fontSize: 19,
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

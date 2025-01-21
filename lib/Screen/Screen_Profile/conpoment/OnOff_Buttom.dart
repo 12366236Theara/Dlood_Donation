@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kilo_health/Screen/Screen_Profile/conpoment/Property.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:kilo_health/Screen/Screen_Setting/conpoment/property.dart';
+import 'package:kilo_health/const/const_image.dart';
 
 class OnOffButton extends StatefulWidget {
   const OnOffButton({super.key});
@@ -22,11 +26,11 @@ class _OnOffButtonState extends State<OnOffButton> {
             children: [
               Row(
                 children: [
-                  Image.asset("lib/image/Availbledonate.jpg"),
+                  Image.asset( 'lib/image/available.png'),
                   const SizedBox(
                     width: 15,
                   ),
-                  const Text("Available for donate"),
+                  Text("availaclefor_donate".tr ,style: GoogleFonts.notoSansKhmer(),),
                 ],
               ),
               Switch(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class GBottom extends StatelessWidget {
@@ -20,19 +22,19 @@ class GBottom extends StatelessWidget {
       tabs: [
         GButtonWidget(
           icon: Icons.home_sharp,
-          text: "Home",
+          text: "home".tr,
         ),
         GButtonWidget(
           icon: Icons.search_outlined,
-          text: "Find Donors",
+          text: "find_donor".tr,
         ),
         GButtonWidget(
           icon: Icons.receipt_long,
-          text: "Report",
+          text: "report".tr,
         ),
         GButtonWidget(
           icon: Icons.person_outline_outlined,
-          text: "Profile",
+          text: "profile".tr,
         ),
       ],
     );
@@ -46,7 +48,7 @@ GButton GButtonWidget({required String text, required IconData icon}) {
     backgroundColor: Colors.grey[200],
     iconSize: 30,
     textSize: 27,
-    textColor: Colors.blue,
+    textStyle: GoogleFonts.notoSansKhmer(color: Colors.blue),
     iconActiveColor: Colors.blue,
     icon: icon,
     text: text,

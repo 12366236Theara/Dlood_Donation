@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:kilo_health/Screen/reports_Screen/conpoment/GriteItem_DR.dart';
-import 'package:kilo_health/Screen/reports_Screen/conpoment/GriteItems.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kilo_health/Screen/home_Sreen/conpoment/GriteItem_DonationRequests.dart';
+import 'package:kilo_health/Screen/home_Sreen/conpoment/gritItem.dart';
+import 'package:kilo_health/Screen/reports_Screen/conpoment/donationBlood.dart';
+import 'package:kilo_health/Screen/reports_Screen/conpoment/reuestDonation.dart';
 
 class ReportsScreen extends StatefulWidget {
   const ReportsScreen({super.key});
@@ -31,23 +34,16 @@ class _ReportsScreenState extends State<ReportsScreen>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: const Text(
-          "Reports",
-          style: TextStyle(fontSize: 18, color: Colors.white),
+        title: Text(
+          "report".tr,
+          style: GoogleFonts.notoSansKhmer(fontSize: 18, color: Colors.white),
         ),
-        actions: const [
-          Icon(
-            Icons.notifications,
-            color: Colors.white,
-            size: 25,
-          ),
-        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20,right: 20, top: 10,),
-        child: Column(
-          children: [
-            Container(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10, top: 10),
+            child: Container(
               height: 45,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -62,33 +58,30 @@ class _ReportsScreenState extends State<ReportsScreen>
                     unselectedLabelColor: Colors.grey,
                     dividerColor: Colors.amber,
                     dividerHeight: 0,
-                    labelStyle: const TextStyle(
+                    labelStyle: GoogleFonts.notoSansKhmer(
                         color: Colors.blue, fontWeight: FontWeight.bold),
                     indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(7),
                       color: Colors.white,
                     ),
-                    tabs: const [
+                    tabs: [
                       Tab(
-                        text: "Requests Donation",
+                        text: "request_donations".tr,
                       ),
                       Tab(
-                        text: "Donation Requests",
+                        text: "donation_requests".tr,
                       )
                     ]),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: TabBarView(controller: _tabController, children: const [
-                GriteitemsRD(),
-                GriteitemDr(),
-              ]),
-            )
-          ],
-        ),
+          ),
+          Expanded(
+            child: TabBarView(controller: _tabController, children: const [
+              Donationblood(),
+              Reuestdonation(),
+            ]),
+          )
+        ],
       ),
     );
   }

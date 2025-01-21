@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Textfial extends StatelessWidget {
   final String text;
@@ -7,25 +8,15 @@ class Textfial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: 55,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.white,
+    return TextField(
+      decoration: InputDecoration(
+        hintStyle:   GoogleFonts.notoSansKhmer(color: Colors.grey),
+        hintText: text,
+        prefixIcon: Image.asset(image),
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.black, blurRadius: 0.1, offset: Offset(0, 0))
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-            decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.grey),
-                hintText: text,
-                prefixIcon: Image.asset(image),
-                border: InputBorder.none)),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Widget Propertysetting(
   String image,
@@ -14,7 +15,7 @@ Widget Propertysetting(
             const SizedBox(
               width: 15,
             ),
-            Text(title),
+            Text(title , style: GoogleFonts.notoSansKhmer(),),
           ],
         ),
       ),

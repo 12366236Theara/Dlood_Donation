@@ -1,135 +1,224 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:kilo_health/Screen/Screen_LornPolinDetail_Donate/Detail_Donate_Screen.dart';
+import 'package:kilo_health/Screen/home_Sreen/conpoment/buttom.dart';
+import 'package:kilo_health/controller/donation_blood_Controller.dart';
 
 class GriteitemDonationrequests extends StatelessWidget {
   const GriteitemDonationrequests({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const ScrollPhysics(),
-      shrinkWrap: true,
-      itemExtent: 214,
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Card(
-            elevation: 5,
-            shadowColor: Colors.white,
-            child: Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+    final controller = Get.put(DonationBloodController());
+    return Obx(
+      () => controller.isloading.value
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.only(
+                right: 10,
+                left: 10,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  InkWell(
+              child: ListView.builder(
+                physics: const ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: controller.donationBlood.length,
+                itemBuilder: (context, index) {
+                  final data = controller.donationBlood[index];
+
+                  final dateFormat = _getTime(data.createdAt);
+                  return InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DetailDonateScreen(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailDonateScreen(
+                            fistname: data.createdBy!.firstName ?? '',
+                            lastname: data.createdBy!.lastName ?? "",
+                            location: data.location!.address ?? '',
+                            note: data.note ?? '',
+                            phone: data.phoneNumber ?? '',
+                            typeblood: data.bloodType ?? '',
+                          ),
+                        ),
+                      );
                     },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                    child: Card(
+                      elevation: 1,
+                      shadowColor: Colors.white,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Stack(
                           children: [
-                            Image.asset("lib/image/Profilegrit.jpg"),
-                            const SizedBox(
-                              width: 5,
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                                "lib/image/Profileitem.png"),
+                                            const SizedBox(
+                                              width: 3,
+                                            ),
+                                            texts("name".tr, Colors.black, 15),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                          "${data.createdBy!.lastName} ${data.createdBy!.firstName}",
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                                "lib/image/Locationitem.png"),
+                                            const SizedBox(
+                                              width: 3,
+                                            ),
+                                            texts("lacation".tr, Colors.black,
+                                                15),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        texts(
+                                            data.location!.address ?? 'address',
+                                            Colors.black,
+                                            15),
+                                        const SizedBox(
+                                          height: 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                                "lib/image/timeitem.png"),
+                                            const SizedBox(
+                                              width: 2,
+                                            ),
+                                            texts("time".tr, Colors.black, 15),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              dateFormat,
+                                            ), // Display formatted time
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              data.status ?? "status",
+                                              style: const TextStyle(
+                                                color: Color(0xffE59600),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          data.bloodType ?? 'blood',
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                        Image.asset(
+                                          height: 40,
+                                          "lib/image/Blooditem.png",
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            texts("Name")
+                            Positioned(
+                              right: 1,
+                              bottom: 0,
+                              child: Row(
+                                children: [
+                                  bottom(
+                                    "reject",
+                                    Colors.red,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  bottom(
+                                    "donate",
+                                    Colors.blue,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        const Text(
-                          "LORN POLIN",
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset("lib/image/Location.jpg"),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            texts("Location"),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        texts("Phnom Panh, Cambodia"),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset("lib/image/time.jpg"),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            texts("Time"),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        texts("5 Min Ago"),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "Reject",
-                      style: TextStyle(fontSize: 20, color: Colors.red),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "B+",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26),
                       ),
-                      Image.asset(height: 50, "lib/image/Blood.jpg"),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Donate",
-                          style: TextStyle(color: Colors.blue, fontSize: 20),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    ),
+                  );
+                },
               ),
             ),
-          ),
-        );
-      },
     );
   }
-}
 
-Widget texts(String text) {
-  return Text(
-    text,
-    style: const TextStyle(color: Colors.black, fontSize: 15),
-  );
+  String _getTime(String? time) {
+    if (time == null) {
+      return 'Unknown time';
+    }
+    try {
+      DateTime dateTime = DateTime.parse(time);
+      return DateFormat('HH:mm').format(dateTime);
+    } catch (e) {
+      return 'Unknown time';
+    }
+  }
+
+  Widget texts(String text, Color color, double size) {
+    return SizedBox(
+      width: 130,
+      child: Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: GoogleFonts.notoSansKhmer(
+          color: color,
+          fontSize: size,
+        ),
+      ),
+    );
+  }
 }

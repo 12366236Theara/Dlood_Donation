@@ -12,11 +12,15 @@ Widget TextDetail(
         const SizedBox(
           width: 20,
         ),
-        Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16),
+        Expanded(
+          child: Text(
+            title,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16),
+          ),
         )
       ],
     ),

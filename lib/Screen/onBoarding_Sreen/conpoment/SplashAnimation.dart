@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SplashAnimation extends StatefulWidget {
+  const SplashAnimation({super.key});
+
   @override
   _SplashAnimationState createState() => _SplashAnimationState();
 }
@@ -11,7 +13,7 @@ class _SplashAnimationState extends State<SplashAnimation> {
   @override
   void initState() {
     super.initState();
-    
+
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         isVisible = true;
@@ -21,16 +23,14 @@ class _SplashAnimationState extends State<SplashAnimation> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      alignment: Alignment.centerRight,
       child: AnimatedOpacity(
-        duration:  Duration(seconds: 01),
+        duration: const Duration(seconds: 01),
         opacity: isVisible ? 0.1 : 0.0,
         child: Image.asset(
-          
           fit: BoxFit.cover,
-          "lib/image/sliper.jpg",
-          
-          
+          "lib/image/Groupqur.png",
         ),
       ),
     );

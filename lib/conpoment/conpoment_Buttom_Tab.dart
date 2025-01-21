@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ConpomentButtom extends StatelessWidget {
   final String title;
@@ -19,8 +20,8 @@ class ConpomentButtom extends StatelessWidget {
             color: const Color(0xff0a7ebd)),
         child: Text(
           title,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
+          
+          style: GoogleFonts.notoSansKhmer(color: Colors.white)
         ),
       ),
     );

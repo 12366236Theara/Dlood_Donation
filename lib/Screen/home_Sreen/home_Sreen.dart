@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:kilo_health/Screen/Screen_CreateARequest/Screeen_CreateARequest.dart';
-import 'package:kilo_health/Screen/Screen_DonationRequests/DonationRequests.dart';
+import 'package:kilo_health/Screen/home_Sreen/conpoment/DonationRequests.dart';
 import 'package:kilo_health/Screen/Screen_Notification/Screen_Notification.dart';
-import 'package:kilo_health/Screen/Screen_RequestsDonation/RequestsDonation.dart';
+import 'package:kilo_health/Screen/home_Sreen/conpoment/RequestsDonation.dart';
 import 'package:kilo_health/Screen/home_Sreen/conpoment/GriteItem_DonationRequests.dart';
 import 'package:kilo_health/Screen/home_Sreen/conpoment/catocary.dart';
 import 'package:kilo_health/Screen/home_Sreen/conpoment/gritItem.dart';
@@ -16,12 +19,11 @@ class HomeSreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: const Text(
-          "Home",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+        title: Text(
+          "home".tr,
+          style: GoogleFonts.notoSansKhmer(color: Colors.white, fontSize: 18),
         ),
         actions: [
           IconButton(
@@ -40,19 +42,21 @@ class HomeSreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Sliderss(),
-              const SizedBox(
-                height: 10,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Sliderss(),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 7,
               ),
-              Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Catocary(
+                  Category(
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -63,10 +67,10 @@ class HomeSreen extends StatelessWidget {
                           ),
                           (Route<dynamic> route) => false);
                     },
-                    text: 'Find Donors',
+                    text: 'find_donors'.tr,
                     image: "lib/image/catocary/iconcatory.jpg",
                   ),
-                  Catocary(
+                  Category(
                     onTap: () {
                       Navigator.push(
                           context,
@@ -74,10 +78,10 @@ class HomeSreen extends StatelessWidget {
                             builder: (context) => const ScreeenCreatearequest(),
                           ));
                     },
-                    text: 'Request Blood',
+                    text: 'request_blood'.tr,
                     image: "lib/image/catocary/foroufit.jpg",
                   ),
-                  Catocary(
+                  Category(
                     onTap: () {
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -87,50 +91,50 @@ class HomeSreen extends StatelessWidget {
                           ),
                           (Route<dynamic> route) => false);
                     },
-                    text: 'Report',
+                    text: 'report'.tr,
                     image: "lib/image/catocary/clipboardss.jpg",
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              // const Cater(),
-              //Request Donition
-              Requst(
-                title: 'Request Donations',
-                onTab: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Requestsdonation(),
-                      ));
-                },
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              //List GriteItem Request Donition
-              const Grititem(),
-              const SizedBox(
-                height: 20,
-              ),
-              Requst(
-                title: ' Donations Request',
-                onTab: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Donationrequests(),
-                      ));
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const GriteitemDonationrequests(),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            // const Cater(),
+            //Request Donition
+            Requst(
+              title: 'request_donations'.tr,
+              onTab: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Requestsdonation(),
+                    ));
+              },
+            ),
+            const SizedBox(
+              height: 13,
+            ),
+            //List GriteItem Request Donition
+            const Grititem(),
+            const SizedBox(
+              height: 10,
+            ),
+            Requst(
+              title: 'donation_requests'.tr,
+              onTab: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Donationrequests(),
+                    ));
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+             GriteitemDonationrequests(),
+          ],
         ),
       ),
     );

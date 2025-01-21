@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Buttoms extends StatelessWidget {
   final onTa;
@@ -18,8 +19,8 @@ class Buttoms extends StatelessWidget {
             color: Colors.red),
         child: Text(
           title,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white),
+          style:  GoogleFonts.notoSansKhmer(
+               color: Colors.white),
         ),
       ),
     );

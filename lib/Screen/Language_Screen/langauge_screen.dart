@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kilo_health/Screen/Language_Screen/conpoment/data_language.dart';
 
 import 'package:kilo_health/Screen/ScreenSignIn_SignUp/SignIn_SignUp.dart';
 import 'package:kilo_health/conpoment/conpoment_Buttom_Tab.dart';
-
-enum SingingCharacter { K, E, C }
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LangaugeScreen extends StatefulWidget {
   const LangaugeScreen({super.key});
@@ -17,30 +17,31 @@ class _LangaugeScreenState extends State<LangaugeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+    
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset("lib/image/Group.jpg"),
-              ),
+              Image.asset('lib/image/Language.png'),
+
               const DataLanguage(),
-              const SizedBox(
-                height: 200,
-              ),
+              
               ConpomentButtom(
-                title: "Confirm",
-                onTa: () {
-                  Navigator.push(
+                
+                title:  "confirm".tr,
+                onTa: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setBool('LangaugeScreen', true);
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SigninSignup(),
                     ),
+                    (Route<dynamic> route) => false,
                   );
                 },
               ),

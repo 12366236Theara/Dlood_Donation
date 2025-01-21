@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kilo_health/Screen/Screen_EditeProfile/conpoment/textfiald_Edite.dart';
 import 'package:kilo_health/conpoment/conpoment_Buttom_Tab.dart';
 
@@ -9,7 +10,6 @@ class Editeprofile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
@@ -21,9 +21,6 @@ class Editeprofile extends StatelessWidget {
             Icons.arrow_back_ios_new,
           ),
         ),
-        actions: const [
-          Icon(size: 27, color: Colors.white, Icons.notifications),
-        ],
         title: const Text(
           "Edit Profile ",
           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -34,44 +31,44 @@ class Editeprofile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Column(
+            Column(
               children: [
                 TextfieldEdite(
-                  text: "Fisrt Name ",
-                  image: "lib/image/persont.jpg",
+                  text: "first_name".tr,
+                  image: "lib/image/profile-fills.png",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TextfieldEdite(
-                  text: "Last Name ",
-                  image: "lib/image/persont.jpg",
+                  text: "last_name".tr,
+                  image: "lib/image/profile-fills.png",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TextfieldEdite(
-                  text: "Email ID ",
-                  image: "lib/image/Email.jpg",
+                  text: "email".tr,
+                  image: "lib/image/Email.png",
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 TextfieldEdite(
-                  text: "Mobile Number ",
-                  image: "lib/image/calll.jpg",
+                  text: "phone".tr,
+                  image: "lib/image/calldetail.png",
                 ),
-                SizedBox(
+                 SizedBox(
                   height: 25,
                 ),
                 TextfieldEdite(
-                  text: "Location ",
-                  image: "lib/image/locationtt.jpg",
+                  text: "lacation".tr,
+                  image: "lib/image/Locationitem.png",
                 ),
               ],
             ),
             ConpomentButtom(
-              title: "Update",
+              title: "update".tr,
               onTa: () {
                 Navigator.pop(context);
               },

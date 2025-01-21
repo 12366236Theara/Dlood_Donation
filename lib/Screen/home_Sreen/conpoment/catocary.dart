@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class Catocary extends StatelessWidget {
+class Category extends StatelessWidget {
   final onTap;
   final String text;
   final String image;
-  const Catocary({super.key, required this.text, required this.image, this.onTap});
+  const Category(
+      {super.key, required this.text, required this.image, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Card(
-        elevation: 4,
+        color: Colors.white,
+        elevation: 0.3,
         shadowColor: Colors.black,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 23),
-          alignment: Alignment.center,
-          height: 110,
-          width: 110,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const []),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(image),
               Text(
+                maxLines: 2,
+                overflow: TextOverflow.visible,
                 text,
-                style: const TextStyle(color: Colors.black, fontSize: 13),
+                style: GoogleFonts.notoSansKhmer(
+                    color: Colors.black, fontSize: 13),
               ),
             ],
           ),
